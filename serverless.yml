@@ -48,6 +48,10 @@ provider:
 #  environment:
 #    variable1: value1
 
+package:
+  individually: true
+  exclude:
+      - '*'
 # you can add packaging information here
 #package:
 #  include:
@@ -58,9 +62,23 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
+  php:
+    handler: phpf.handler
+    package:
+      include:
+        - phpf.js
+        - php
+        - phpinfo.php
+    events:
+      - http:
+          path: /phpinfo.php
+          method: get
   hello:
     handler: handler.hello
 
+    package:
+      include:
+        - handler.js
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
